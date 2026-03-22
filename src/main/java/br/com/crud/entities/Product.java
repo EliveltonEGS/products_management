@@ -1,4 +1,4 @@
-package br.com.crud.product.Entity;
+package br.com.crud.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -10,15 +10,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "products")
 public class Product {
-
-    protected Product() {
-    }
-
-    public Product(String name, Integer amount, BigDecimal price) {
-        this.name = name;
-        this.amount = amount;
-        this.price = price;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

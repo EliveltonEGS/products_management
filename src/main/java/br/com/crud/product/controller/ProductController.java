@@ -2,7 +2,7 @@ package br.com.crud.product.controller;
 
 import java.util.Map;
 
-import br.com.crud.product.Entity.Product;
+import br.com.crud.entities.Product;
 import br.com.crud.product.service.ProductService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -27,11 +27,11 @@ public class ProductController {
     @Transactional
     public Response create(@Valid Product product) {
         return Response
-            .status(Response.Status.CREATED)
-            .entity(Map.of(
-                    "data", productService.create(product),
-                    "message", "created"
-            )).build();
+                .status(Response.Status.CREATED)
+                .entity(Map.of(
+                        "data", productService.create(product),
+                        "message", "created"))
+                .build();
     }
 
     @GET
@@ -43,23 +43,19 @@ public class ProductController {
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update(@PathParam("id") UUID id, Product product) {
+    public Response update(@PathParam("id") UUID id, @Valid Product product) {
         return Response.ok(Map.of(
-        "data", productService.update(id, product),
-        "Message", "Updated."
-        )).build();
-        
+                "data", productService.update(id, product),
+                "message", "Updated.")).build();
     }
 
     @GET
     public Response findAll(
-        @QueryParam("page") @DefaultValue("0") Integer page,
-        @QueryParam("pageSize") @DefaultValue("10") Integer pageSize
-    ) {
+            @QueryParam("page") @DefaultValue("0") Integer page,
+            @QueryParam("pageSize") @DefaultValue("10") Integer pageSize) {
         return Response.ok(Map.of(
-            "data", productService.findAll(page, pageSize),
-                "total", productService.totalProduct()
-        )).build();
+                "data", productService.findAll(page, pageSize),
+                "total", productService.total())).build();
     }
 
     @DELETE

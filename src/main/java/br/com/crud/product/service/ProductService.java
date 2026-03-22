@@ -3,14 +3,11 @@ package br.com.crud.product.service;
 import java.util.List;
 import java.util.UUID;
 
-import javax.management.RuntimeErrorException;
-
-import br.com.crud.product.Entity.Product;
-import br.com.crud.product.exception.ProductNotFoundException;
+import br.com.crud.entities.Product;
+import br.com.crud.exception.ItemNotFoundException;
 import br.com.crud.product.repository.ProductyRepository;
 import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.ws.rs.core.Response;
 
 @ApplicationScoped
 public class ProductService {
@@ -34,7 +31,7 @@ public class ProductService {
     }
 
     public Product update(UUID id, Product product) {
-        var currentProduct = findById(id);
+        Product currentProduct = this.findById(id);
         currentProduct.name = product.name;
         currentProduct.amount = product.amount;
         currentProduct.price = product.price;
@@ -45,16 +42,15 @@ public class ProductService {
     }
 
     public Product findById(UUID id) {
-        return productyRepository.findByIdOptional(id)
-                .orElseThrow(ProductNotFoundException::new);
+        return productyRepository.findByIdOptional(id).orElseThrow(ItemNotFoundException::new);
     }
 
-    public Long totalProduct() {
+    public Long total() {
         return productyRepository.count();
     }
 
     public void delete(UUID id) {
-        findById(id);
+        this.findById(id);
 
         productyRepository.deleteById(id);
     }

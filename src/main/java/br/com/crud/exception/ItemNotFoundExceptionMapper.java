@@ -1,4 +1,4 @@
-package br.com.crud.product.exception;
+package br.com.crud.exception;
 
 import java.util.Map;
 
@@ -8,11 +8,11 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
 
 @Provider
-public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
+public class ItemNotFoundExceptionMapper implements ExceptionMapper<NotFoundException> {
     @Override
     public Response toResponse(NotFoundException exception) {
         return Response.status(Response.Status.NOT_FOUND)
-                .entity(Map.of("message", "Product Not Found."))
+                .entity(Map.of("message", "Item Not Found."))
                 .build();
     }
 }

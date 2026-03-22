@@ -1,11 +1,11 @@
-package br.com.crud.product.repository;
+package br.com.crud.category.repository;
 
 import java.util.UUID;
 
-import br.com.crud.entities.Product;
+import br.com.crud.entities.Category;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class ProductyRepository implements PanacheRepositoryBase<Product, UUID> {
+public class CategoryRepository implements PanacheRepositoryBase<Category, UUID> {
 }
