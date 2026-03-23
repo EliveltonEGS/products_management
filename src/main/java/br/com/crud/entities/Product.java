@@ -24,4 +24,8 @@ public class Product {
 
     @Column(nullable = false, precision = 10, scale = 2)
     public BigDecimal price;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", nullable = false)
+    public Category category;
 }

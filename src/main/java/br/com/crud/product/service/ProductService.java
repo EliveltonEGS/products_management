@@ -3,6 +3,7 @@ package br.com.crud.product.service;
 import java.util.List;
 import java.util.UUID;
 
+import br.com.crud.category.repository.CategoryRepository;
 import br.com.crud.entities.Product;
 import br.com.crud.exception.ItemNotFoundException;
 import br.com.crud.product.repository.ProductyRepository;
@@ -13,12 +14,21 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class ProductService {
 
     private final ProductyRepository productyRepository;
+    private final CategoryRepository categoryRepository;
 
-    public ProductService(ProductyRepository productyRepository) {
+    public ProductService(
+        ProductyRepository productyRepository,
+        CategoryRepository categoryRepository
+    ) {
         this.productyRepository = productyRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public Product create(Product product) {
+        var category = categoryRepository.findById(product.category.id);
+
+        product.category = category;
+
         productyRepository.persist(product);
         return product;
     }
